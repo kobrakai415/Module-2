@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<!--
+ASSIGNMENT RULES
+- The solution must be pushed to the repository and linked to EduFlow by the end of the day.
+- You can google / use StackOverflow BUT we suggest you to use just the material provided.
+- To test the page, just open it with your default browser.
+- Use Bootstrap4.6 classes to render the page.
+- Use containers, rows and cols in order to achieve a great responsive layout.
+
+ASSIGNMENT TOPIC
+You are creating a website to showcase your favourite music albums.
+In this page you'd have a short biography section of yourself, and the top albums of your life, 
+the worst album you ever listened to and everything related to the music you love.
+
+NOTE:
+Most of the times, even the most expert of designers need inspiration.
+Spend 30 minutes surfing the web and searching the best way of rapresenting the album you love the most.
+Could be the Amazon way, the Spotify or Apple music way or some other blog out there.
+-->
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- IMPORT ALL THE BOOTSTRAP RELATED CSS & SCRIPTS-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+
+  <style>
+    /* EXERCISE 1
+            For all Albums we'd like to have a consistent style.
+            Create a class for:
+            - The album container
+            - The album cover
+            - The album title
+            - The album group / singer / dj
+            - The album genre
+            - The album duration
+            - etc
+         */
+
+    .albumContainer {
+      text-align: center;
+
+    }
+
+    .albumContainer img {
+      height: 250px;
+      width: 250px;
+      margin-top: 20px;
+      border-radius: 50%;
+
+
+    }
+
+    .albumTitle {
+      margin-top: 0.5;
+    }
+
+    .albumGroup {
+      display: block;
+      font-size: 1.3em;
+      margin-top: 0.5em;
+      margin-bottom: 0.5px;
+    }
+
+    body {
+      background: rgb(2, 0, 36);
+      background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(58, 145, 141, 1) 44%, rgba(67, 200, 91, 1) 73%);
+      color: white;
+    }
+
+    .navbar {
+      background-color: rgb(77, 172, 161);
+      height: 7vh;
+    }
+
+    section {
+      min-height: 93vh;
+      top: 0;
+      left: 0;
+
+    }
+
+    h2 {
+      color: white;
+      text-align: center;
+      margin: 25px;
+    }
+
+    #artist-carousel {
+      height: 600px;
+    }
+
+    .tapestry {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .square {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      margin: 10px auto;
+    }
+
+    .toggle-btn {
+      width: 100px;
+      position: sticky;
+      top: 5em;
+      right: 5em;
+      margin-left: auto;
+      margin-top: 4em;
+      z-index: 1;
+    }
+
+    .insta-btn {
+      padding: 15px 45px;
+      border: none;
+      border-radius: 16px;
+      background-color: blue;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .insta-btn:hover {
+      filter: drop-shadow(0px 0px 10px rgba(173, 37, 110, 0.71));
+      background-color: teal;
+    }
+
+    .card {
+      margin-top: 50px;
+      padding-bottom: 10px;
+    }
+
+    #row1 #row2 #row3 {
+      transition: ease-out 5s linear;
+    }
+
+    .addTrack {
+      transition: 0.5s linear;
+    }
+
+    .addTrack:hover {
+
+      box-shadow: 5px 5px 10px white;
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- EXERCISE 2 
+            Implement a navigation bar using the bootstrap component
+            This navigation bar must link every section in your page
+        -->
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top  ">
+    <div class="container">
+      <a class="navbar-brand" href="#">Kai's Album Gallery</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#fav-albums">Favourite Albums <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#bestAlbum">Best Album Ever</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#wallOfShame">Wall of Shame</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown link
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </nav>
+
+
+
+  <!-- EXERCISE 1
+        Use the specific bootstrap component to implement a Breadcrumb
+        -->
+
+  <div class="container">
+    <div class="row">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#fav-albums">Favourite Albums</a></li>
+          <li class="breadcrumb-item"><a href="#bestAlbum">Best Album</a></li>
+          <li class="breadcrumb-item"><a href="#wallOfShame">Wall of Shame</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Current</li>
+        </ol>
+      </nav>
+
+      <!-- EXERCISE 2
+            Create a Jumbotron section with a quick explanation / image of the website
+        -->
+      <div class="jumbotron container bg-dark">
+
+        <h1 class="display-4">Kai's Album Gallery!</h1>
+        <img src="./web.PNG" height="200" width="300" alt="">
+
+        <p class="lead">A selection of Kai's favourite and least favourite albums!</p>
+        <hr class="my-4">
+        <p></p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">See Kai's collection!</a>
+      </div>
+
+    </div>
+  </div>
+  <!-- EXERCISE 3
+            Foreach album in the favorite list, place the genre inside a badge
+        -->
+
+
+
+  <!-- EXERCISE 4
+            Foreach album in the favorite list, use the Bootstrap Card to contain it.
+            Use card layouts to format it in the best and more compatible way.
+        -->
+
+  <!-- EXERCISE 5
+            Place the tracklist inside a Bootstrap table.
+            The row column must be alternate.
+            Use one column for the track order, one of the title and one for the length.
+            (If you want, you can also add extra columns)
+        -->
+  <div class="container">
+
+    <h2>Tracklist</h2>
+    <table class="table text-white">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Track</th>
+          <th scope="col">Artist</th>
+          <th scope="col">Length</th>
+          <th scope="col">Remove</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="row1">
+          <th scope="row">1</th>
+          <td>Peaches</td>
+          <td>Justin Beiber</td>
+          <td>3:42</td>
+          <td><button type="button" class="btn btn-danger" onclick="row1.remove()">Delete</button></td>
+        </tr>
+        <tr id="row2">
+          <th scope="row">2</th>
+          <td>Up</td>
+          <td>Cardi B</td>
+          <td>4:11</td>
+          <td><button type="button" class="btn btn-danger" onclick="row2.remove()">Delete</button></td>
+        </tr>
+        <tr id="row3">
+          <th scope="row">3</th>
+          <td>Leave The Door Open</td>
+          <td>Silk Sonic</td>
+          <td>2:57</td>
+          <td><button type="button" class="btn btn-danger" onclick="row3.remove()">Delete</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-success addTrack" data-toggle="modal" data-target="#exampleModal">Add track</button>
+
+  </div>
+
+
+  <!-- EXERCISE 6
+            Add a DELETE bootstrap button on each row of the tracklist, with appropriate transitions on the various pseudo-class states 
+            which will apply for the subsequent button you'll use.
+            Clicking on the button the row must disappear. 
+            Add a fade-out effect using a CSS transition effect
+        -->
+
+
+  <!-- EXERCISE 7
+            Add a "Contact Me" form in the footer.
+            The "Contact Me" form has 2 fields:
+            - Email
+            - Text of the message
+            Use the correct Bootstrap styles for styling the buttons
+        -->
+
+
+
+  <!-- EXERCISE 8 
+            Add to the footer an extra column with the same links of the top nav.
+        -->
+
+  <!-- EXERCISE 9
+            Add a button "Add Track" under the track list the album, add a nice shadow transition when the button is hovered
+        -->
+
+
+
+  <!-- EXERCISE 10
+            On "Add Track" button, open a new modal.
+            The modal shall contain a form with:
+            - Track number
+            - Track name
+            - Track length
+            - Track featuring
+            - Live Track (checkbox)
+            The fields should be inside an Input Group and divided in 2 columns.
+        -->
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="email" aria-label="email"
+                      aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group">
+
+                  <textarea class="form-control" placeholder="your message"
+                      aria-label="With textarea"></textarea>
+              </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+  <!-- EXERCISE 11
+            Add 2 bootstrap buttons at the bottom of the modal window:
+            - Close => clear the fields and close the modal
+            - Add => Add the track to the list of tracks in the main page and display an alert success message 
+            - The new list-element added to the list will appear with a fade-in transition effect
+            https://getbootstrap.com/docs/4.6/components/alerts/
+            [EXTRA] Make the message disappear after 5 seconds
+            https://www.w3schools.com/jsref/met_win_settimeout.asp
+        -->
+
+  <!-- EXERCISE 12
+            All the field (except for Feat. and Live Track) are required fields and requires validation.
+            If the user clicks on the Add button and some fields are empty, a warning alert must be show
+        -->
+
+  <!-- ############### -->
+  <!-- ###  EXTRA  ### -->
+  <!-- ############### -->
+
+  <!-- EXERCISE 13
+            For each "Album cover" in your page, add a tooltip with the title
+        -->
+
+  <!-- EXERCISE 14
+            Update the header and footer links using scrollspy to render a smooth transition to the parts of the document.
+        -->
+
+  <!-- EXERCISE 15
+            Add a Album Carousel with controls to display the top 10 albums
+        -->
+
+  <!-- EXERCISE 16
+            Make every section of the page "collapsable" if the user clicks on the section title
+        -->
+
+  <!-- EXERCISE 3
+            Create a responsive section for your favourite albums.
+            In this section you should have:
+            - 4 albums per row when the screen is very large
+            - 3 albums per row when you are on a tablet (or a smaller viewport)
+            - 2 albums per row when you are on a small screen
+        -->
+  <section id="fav-albums">
+    <h2 class="mt-2">Favourite Albums</h2>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img1.jpg" class="img-fluid" alt="The weekend album cover">
+              <h4 class="albumTitle">Starboy</h4>
+              <span class="albumGroup">The Weekend</span>
+              <span class="albumGenre badge badge-pill badge-dark">Hip Hop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img2.jpg" class="img-fluid" alt="The weekend album cover">
+              <h4 class="albumTitle">Blonde</h4>
+              <span class="albumGroup">Frank Ocean</span>
+              <span class="albumGenre badge badge-pill badge-dark">Hip Hop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img3.jpg" class="img-fluid" alt="The weekend album cover">
+              <h4 class="albumTitle">Mothership</h4>
+              <span class="albumGroup">Led Zeplin</span>
+              <span class="albumGenre badge badge-pill badge-dark">Rock</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+
+              <img src="dave.jpg" class="img-fluid" alt="The weekend album cover">
+              <h4 class="albumTitle">Psychodrama</h4>
+              <span class="albumGroup">Dave</span>
+              <span class="albumGenre badge badge-pill badge-dark">Rap</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img1.jpg" class="img-fluid" alt="album cover">
+              <h4 class="albumTitle">Starboy</h4>
+              <span class="albumGroup">The Weekend</span>
+              <span class="albumGenre badge badge-pill badge-dark">Hip Hop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img2.jpg" class="img-fluid" alt="album cover">
+              <h4 class="albumTitle">Blonde</h4>
+              <span class="albumGroup">Frank Ocean</span>
+              <span class="albumGenre badge badge-pill badge-dark">Hip Hop</span>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="img3.jpg" class="img-fluid" alt="album cover">
+              <h4 class="albumTitle">Mothership</h4>
+              <span class="albumGroup">Led Zeplin</span>
+              <span class="albumGenre badge badge-pill badge-dark">Rock</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="card bg-primary">
+            <div class="albumContainer">
+              <img src="dave.jpg" class="img-fluid" alt="album cover">
+              <h4 class="albumTitle">Psychodrama</h4>
+              <span class="albumGroup">Dave</span>
+              <span class="albumGenre badge badge-pill badge-dark">Rap</span>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+  </section>
+
+
+
+  <!-- EXERCISE 4
+            Create a section for the album reviews.
+            Pick one of your fav albums, and create a section with:
+            - Cover
+            - Title
+            - Band
+            - Duration
+            - Genre
+            - Tracklist
+            - ... And whatever you think it's interesting about it!
+        -->
+
+  <hr>
+
+  <section id="bestAlbum">
+    <h2>Best Album</h2>
+    <div class="container mt-5 py-5">
+
+      <div class="row">
+        <div class="col-12 col-md-4">
+
+          <img src="frank.jpg" height="100%" width="100%" alt="album cover" data-bs-toggle="collapse"
+            data-bs-target="#bestAlbumText">
+        </div>
+
+        <div class="col-12 col-md-8">
+          <div class="d-fkex flex-column h-100 justify-content-center collapse show" id="bestAlbumText">
+            <h4>Sinatra - Nothing But The Best</h4>
+            <div>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora, libero rerum eligendi placeat dolor
+              nihil at, reiciendis accusamus voluptate molestias deleniti recusandae voluptatem dolorem. Nam at maxime
+              laudantium eum, veniam fuga odit ullam neque incidunt labore architecto. Cupiditate labore atque a optio
+              iste delectus neque et, consectetur autem vitae nam? Quae praesentium a necessitatibus eum ipsam explicabo
+              veniam impedit aspernatur.
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr>
+
+
+  <!-- EXERCISE 5
+            Worst album list! Find out the music you don't really like or you find overrated and list it
+            in this "hall of shame" chart!
+        -->
+
+  <section id="wallOfShame">
+    <h2 class="text-center my-4">Wall of Shame</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/200/100" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/203/300" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/210/300" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/203/330" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/200/100" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/203/300" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/210/300" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="albumContainer">
+            <img src="https://picsum.photos/203/330" class="img-fluid">
+            <h4>Terrible Album 1</h4>
+            <span>Terrible Artists</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <hr>
+
+
+  <!-- EXERCISE 6
+            Do you have any musician / band you admire or you are a fan of?
+            This section is dedicated to him / her / them!
+            Feel free to experiment in this part of the page.
+        -->
+
+  <section id="favArtists">
+    <h2>Favourite Artists</h2>
+    <div class="container">
+      <div class="row">
+
+        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"
+              aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="https://via.placeholder.com/2000x1000/ff5789" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://via.placeholder.com/2000x1000/008000" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Second slide label</h5>
+                <p>Some representative placeholder content for the second slide.</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>Third slide label</h5>
+                <p>Some representative placeholder content for the third slide.</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </section>
+
+
+
+
+  <!-- EXERCISE 7
+            Just covers!
+            Create a tapestry of album pictures. Every album picture must be "square" (use CSS to do that).
+            Put at least 20 covers (also repeated) to have a nice effect and see how Bootstrap handles it.
+        -->
+
+
+  <section id="tapestry">
+    <h2>Tapestry</h2>
+    <div class="container">
+      <div class="row py-5">
+        <div class="col-12 tapestry">
+
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+          <img src="https://via.placeholder.com/2000x1000/FFFFFF" class="img-fluid square" alt="">
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- EXERCISE 8
+            Implement a footer with some information / social links
+        -->
+
+  <footer>
+
+    <div class="container">
+      <h2>Contact Us</h2>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Your message</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+        <div class="text-center">
+          This album gallery has been brought to you by Kai
+          Follow me on instagram
+        </div>
+        <div class="text-center my-4">
+          <a href="https://www.instagram.com/">
+            <button class="insta-btn">Instagram</button>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EXTRA:
+            EXERCISE 9
+            Create an album details area that is going to be toggled on and off by clicking on the album image
+        -->
+
+  <!-- EXERCISE 10
+            Add a button to each section. By clicking on it the section body appears (if hidden) or disappears (if visible) 
+            (hint: look for a boostrap component that can handle the job for you. You can always rely on DOM manipulation if you can't find it)
+        -->
+
+
+  <script>
+
+    window.onload = function () {
+      addToggleButtons()
+      count()
+
+    }
+
+    function addToggleButtons() {
+      for (let section of document.querySelectorAll("section")) {
+
+        section.children[1].classList.add("collapse")
+        section.children[1].classList.add("show")
+
+
+        section.innerHTML = `<button class= 'btn btn-outline-light toggle-btn' data-bs-toggle="collapse" data-bs-target="#${section.id} > div">Show/Hide</button>` + section.innerHTML
+      }
+
+    }
+    const count = function () {
+
+      const albumNum = document.querySelectorAll("img").length
+
+      const text = document.createElement("span")
+      text.classList.add("text-center")
+      text.classList.add("d-inline-block")
+      text.classList.add("w-100")
+      text.classList.add("my-4")
+
+      text.innerHTML = "P.S. This page contains " + albumNum + " albums!"
+
+      document.querySelector("footer").appendChild(text)
+    }
+
+  </script>
+
+  <!--
+         EXERCISE 11
+            Add in the footer a field that counts, on page load, how many ALBUMS there are on the page 
+        -->
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
